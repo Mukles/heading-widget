@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Preview from "./preview";
 
 export default function HeadlineWidget() {
   return (
@@ -17,6 +18,9 @@ export default function HeadlineWidget() {
             Create stunning headlines with advanced typography controls
           </p>
         </motion.div>
+        <div className="grid lg:grid-cols-2 gap-8">
+          <Preview />
+        </div>
       </div>
     </div>
   );
