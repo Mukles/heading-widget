@@ -30,13 +30,13 @@ export default function Controls() {
               Effects
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="text">
+          <TabsContent value="text" className="space-y-6 mt-6">
             <TextControls />
           </TabsContent>
-          <TabsContent value="style">
+          <TabsContent value="style" className="space-y-6 mt-6">
             <StyleControls />
           </TabsContent>
-          <TabsContent value="effects">
+          <TabsContent value="effects" className="space-y-6 mt-6">
             <EffectsControls />
           </TabsContent>
         </Tabs>
