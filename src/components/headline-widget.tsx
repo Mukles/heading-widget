@@ -1,9 +1,10 @@
+import { Controls } from "@/components/controls";
 import { motion } from "framer-motion";
 import Preview from "./preview";
 
 export default function HeadlineWidget() {
   return (
-    <div className="bg-gradient-to-br from-background via-card to-muted p-4">
+    <div className="bg-gradient-to-br min-h-svh from-background via-card to-muted p-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -20,6 +21,7 @@ export default function HeadlineWidget() {
         </motion.div>
         <div className="grid lg:grid-cols-2 gap-8">
           <Preview />
+          <Controls />
         </div>
       </div>
     </div>
