@@ -1,7 +1,7 @@
 import { animations, fontFamilies } from "@/constants";
 import type { ReactNode } from "react";
 import React, { createContext, useContext, useState } from "react";
-import type { ExportFormat, HeadlineSettings } from "../types";
+import type { HeadlineSettings } from "../types";
 
 const defaultHeadlineSettings: HeadlineSettings = {
   text: "Create Amazing Headlines",
@@ -32,8 +32,6 @@ interface HeadlineSettingsContextProps {
   selectedWord: string | null;
   setSelectedWord: React.Dispatch<React.SetStateAction<string | null>>;
   readonly resetSettings: () => void;
-  exportFormat: ExportFormat;
-  setExportFormat: React.Dispatch<React.SetStateAction<ExportFormat>>;
   updateSetting: <K extends keyof HeadlineSettings>(
     key: K,
     value: HeadlineSettings[K]
@@ -49,16 +47,12 @@ export const HeadlineSettingsProvider = ({
 }: {
   children: ReactNode;
 }) => {
-  const [exportFormat, setExportFormat] = useState<ExportFormat>(
-    defaultHeadlineSettings.exportFormat
-  );
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [settings, setSettings] = useState<HeadlineSettings>(
     defaultHeadlineSettings
   );
 
   const resetSettings = () => {
-    setExportFormat(defaultHeadlineSettings.exportFormat);
     setSettings(defaultHeadlineSettings);
     setSelectedWord(null);
   };
@@ -79,8 +73,6 @@ export const HeadlineSettingsProvider = ({
         selectedWord,
         setSelectedWord,
         resetSettings,
-        exportFormat,
-        setExportFormat,
         updateSetting,
       },
     },
@@ -95,5 +87,9 @@ export const useHeadlineSettings = () => {
       "useHeadlineSettings must be used within a HeadlineSettingsProvider"
     );
   }
-  return context;
+  // Add exportFormat for convenience
+  return {
+    ...context,
+    exportFormat: context.settings.exportFormat,
+  };
 };
