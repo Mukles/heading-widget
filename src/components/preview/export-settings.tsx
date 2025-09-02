@@ -6,14 +6,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useHeadlineSettings } from "@/store";
+import type { ExportFormat } from "@/types";
 import { Copy, Download } from "lucide-react";
 
 export default function ExportSettings() {
+  const { exportFormat, setExportFormat } = useHeadlineSettings();
   return (
     <div className="mt-6 pt-6 border-t">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-medium">Export Settings</h3>
-        <Select>
+        <Select
+          value={exportFormat}
+          onValueChange={(value) => {
+            setExportFormat(value as ExportFormat);
+          }}
+        >
           <SelectTrigger className="w-32">
             <SelectValue />
           </SelectTrigger>

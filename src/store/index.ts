@@ -1,26 +1,27 @@
 import type { ReactNode } from "react";
 import React, { createContext, useContext, useState } from "react";
-import type { HeadlineSettings } from "../types";
+import type { ExportFormat, HeadlineSettings } from "../types";
 
 const defaultHeadlineSettings: HeadlineSettings = {
-  text: "Your Headline",
+  text: "Create Amazing Headlines",
   fontSize: 48,
-  fontWeight: "bold",
-  fontFamily: "Arial",
-  letterSpacing: 0,
-  lineHeight: 1.2,
-  gradientEnabled: false,
+  fontWeight: "700",
+  fontFamily: "DM Sans",
+  letterSpacing: -0.02,
+  lineHeight: 1.1,
+  gradientEnabled: true,
   gradientDirection: "to right",
-  gradientColors: ["#000000", "#ffffff"],
+  gradientColors: ["#be123c", "#ec4899"],
   textShadow: false,
   textStroke: false,
   strokeWidth: 1,
   strokeColor: "#000000",
-  animation: "none",
+  animation: "fade-in",
   textAlign: "center",
   hoverEffect: false,
   perLetterAnimation: false,
   wordStyles: {},
+  exportFormat: "json",
 };
 
 interface HeadlineSettingsContextProps {
@@ -28,6 +29,9 @@ interface HeadlineSettingsContextProps {
   setSettings: React.Dispatch<React.SetStateAction<HeadlineSettings>>;
   selectedWord: string | null;
   setSelectedWord: React.Dispatch<React.SetStateAction<string | null>>;
+  readonly resetSettings: () => void;
+  exportFormat: ExportFormat;
+  setExportFormat: React.Dispatch<React.SetStateAction<ExportFormat>>;
 }
 
 const HeadlineSettingsContext = createContext<
@@ -39,13 +43,33 @@ export const HeadlineSettingsProvider = ({
 }: {
   children: ReactNode;
 }) => {
+  const [exportFormat, setExportFormat] = useState<ExportFormat>(
+    defaultHeadlineSettings.exportFormat
+  );
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [settings, setSettings] = useState<HeadlineSettings>(
     defaultHeadlineSettings
   );
+
+  const resetSettings = () => {
+    setExportFormat(defaultHeadlineSettings.exportFormat);
+    setSettings(defaultHeadlineSettings);
+    setSelectedWord(null);
+  };
+
   return React.createElement(
     HeadlineSettingsContext.Provider,
-    { value: { settings, setSettings, selectedWord, setSelectedWord } },
+    {
+      value: {
+        settings,
+        setSettings,
+        selectedWord,
+        setSelectedWord,
+        resetSettings,
+        exportFormat,
+        setExportFormat,
+      },
+    },
     children
   );
 };

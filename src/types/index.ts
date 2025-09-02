@@ -24,4 +24,7 @@ export interface HeadlineSettings {
   hoverEffect: boolean;
   perLetterAnimation: boolean;
   wordStyles: { [key: string]: WordStyle };
+  exportFormat: ExportFormat;
 }
+
+export type ExportFormat = "json" | "css" | "jsx" | "embed";
