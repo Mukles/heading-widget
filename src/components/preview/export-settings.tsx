@@ -11,20 +11,20 @@ import type { ExportFormat } from "@/types";
 import { Check, Copy, Download } from "lucide-react";
 import { useState } from "react";
 
-interface ExportGenerator {
-  [key: string]: (settings: any) => string;
-}
-
 export default function ExportSettings() {
   const { exportFormat, updateSetting, settings } = useHeadlineSettings();
   const [copySuccess, setCopySuccess] = useState(false);
 
-  // Extract export generators into separate functions for better maintainability
-  const exportGenerators: ExportGenerator = {
-    json: (settings) => JSON.stringify(settings, null, 2),
+  // Export headline widget settings in various formats, including transitions
+  function exportSettings(settings: any, exportFormat: string) {
+    let exportData = "";
 
-    css: (settings) =>
-      `
+    switch (exportFormat) {
+      case "json":
+        exportData = JSON.stringify(settings, null, 2);
+        break;
+      case "css":
+        exportData = `
 .headline {
   font-size: ${settings.fontSize}px;
   font-weight: ${settings.fontWeight};
@@ -40,13 +40,17 @@ export default function ExportSettings() {
   }
   ${
     settings.gradientEnabled
-      ? `background-image: linear-gradient(${settings.gradientDirection}, ${settings.gradientColors[0]}, ${settings.gradientColors[1]});
+      ? `
+  background-image: linear-gradient(${settings.gradientDirection}, ${settings.gradientColors[0]}, ${settings.gradientColors[1]});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;`
       : `color: ${settings.gradientColors[0]};`
   }
+  transition: all ${settings.transitionDuration}ms ${
+          settings.transitionTiming
+        } ${settings.transitionDelay}ms;
 }
 
 @keyframes wave {
@@ -61,41 +65,43 @@ export default function ExportSettings() {
 
 .animate-wave span:nth-child(even) {
   animation-delay: 0.1s;
-}`.trim(),
-
-    jsx: (settings) =>
-      `
-<h1 
-  style={{
-    fontSize: '${settings.fontSize}px',
-    fontWeight: '${settings.fontWeight}',
-    fontFamily: '${settings.fontFamily}, sans-serif',
-    letterSpacing: '${settings.letterSpacing}em',
-    lineHeight: ${settings.lineHeight},
-    textAlign: '${settings.textAlign}',
-    ${settings.textShadow ? `textShadow: '0 4px 8px rgba(0,0,0,0.3)',` : ""}
-    ${
-      settings.textStroke
-        ? `WebkitTextStroke: '${settings.strokeWidth}px ${settings.strokeColor}',`
-        : ""
-    }
-    ${
-      settings.gradientEnabled
-        ? `backgroundImage: 'linear-gradient(${settings.gradientDirection}, ${settings.gradientColors[0]}, ${settings.gradientColors[1]})',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-    backgroundClip: 'text',
-    color: 'transparent'`
-        : `color: '${settings.gradientColors[0]}'`
-    }
-  }}
->
+}`.trim();
+        break;
+      case "jsx":
+        exportData = `
+<h1 style={{
+  fontSize: '${settings.fontSize}px',
+  fontWeight: '${settings.fontWeight}',
+  fontFamily: '${settings.fontFamily}, sans-serif',
+  letterSpacing: '${settings.letterSpacing}em',
+  lineHeight: ${settings.lineHeight},
+  textAlign: '${settings.textAlign}',
+  ${settings.textShadow ? `textShadow: '0 4px 8px rgba(0,0,0,0.3)',` : ""}
+  ${
+    settings.textStroke
+      ? `WebkitTextStroke: '${settings.strokeWidth}px ${settings.strokeColor}',`
+      : ""
+  }
+  ${
+    settings.gradientEnabled
+      ? `
+  backgroundImage: 'linear-gradient(${settings.gradientDirection}, ${settings.gradientColors[0]}, ${settings.gradientColors[1]})',
+  WebkitBackgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  backgroundClip: 'text',
+  color: 'transparent'`
+      : `color: '${settings.gradientColors[0]}'`
+  },
+  transition: 'all ${settings.transitionDuration}ms ${
+          settings.transitionTiming
+        } ${settings.transitionDelay}ms',
+}}>
   ${settings.text}
-</h1>`.trim(),
-
-    embed: (settings) =>
-      `
-<!-- Headline Widget Embed Code -->
+</h1>`.trim();
+        break;
+      case "embed":
+        exportData = `
+ Headline Widget Embed Code 
 <div class="headline-widget">
   <style>
     .headline-widget h1 {
@@ -114,22 +120,29 @@ export default function ExportSettings() {
       }
       ${
         settings.gradientEnabled
-          ? `background-image: linear-gradient(${settings.gradientDirection}, ${settings.gradientColors[0]}, ${settings.gradientColors[1]});
+          ? `
+      background-image: linear-gradient(${settings.gradientDirection}, ${settings.gradientColors[0]}, ${settings.gradientColors[1]});
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       color: transparent;`
           : `color: ${settings.gradientColors[0]};`
       }
+      transition: all ${settings.transitionDuration}ms ${
+          settings.transitionTiming
+        } ${settings.transitionDelay}ms;
     }
   </style>
   <h1>${settings.text}</h1>
-</div>`.trim(),
-  };
+</div>`.trim();
+        break;
+    }
+
+    return exportData;
+  }
 
   const generateExportData = (): string => {
-    const generator = exportGenerators[exportFormat];
-    return generator ? generator(settings) : "";
+    return exportSettings(settings, exportFormat);
   };
 
   const handleCopy = async () => {
