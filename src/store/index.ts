@@ -1,4 +1,4 @@
-import { fontFamilies } from "@/constants";
+import { animations, fontFamilies } from "@/constants";
 import type { ReactNode } from "react";
 import React, { createContext, useContext, useState } from "react";
 import type { ExportFormat, HeadlineSettings } from "../types";
@@ -17,7 +17,7 @@ const defaultHeadlineSettings: HeadlineSettings = {
   textStroke: false,
   strokeWidth: 1,
   strokeColor: "#000000",
-  animation: "fade-in",
+  animation: animations[1].value,
   textAlign: "center",
   hoverEffect: false,
   perLetterAnimation: false,
