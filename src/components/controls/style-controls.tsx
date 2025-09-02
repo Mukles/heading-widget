@@ -15,17 +15,14 @@ import { gradientDirections } from "@/constants/gradients";
 import { useHeadlineSettings } from "@/store";
 
 export default function StyleControls() {
-  const { settings, setSettings } = useHeadlineSettings();
+  const { settings, updateSetting } = useHeadlineSettings();
   return (
     <>
       <div>
         <Label>Letter Spacing:{settings.letterSpacing}em</Label>
         <Slider
           onValueChange={(value) => {
-            setSettings((prev) => ({
-              ...prev,
-              letterSpacing: value[0],
-            }));
+            updateSetting("letterSpacing", value[0]);
           }}
           value={[settings.letterSpacing]}
           min={-0.1}
@@ -39,10 +36,7 @@ export default function StyleControls() {
         <Label>Line Height: {settings.lineHeight}</Label>
         <Slider
           onValueChange={(value) => {
-            setSettings((prev) => ({
-              ...prev,
-              lineHeight: value[0],
-            }));
+            updateSetting("lineHeight", value[0]);
           }}
           value={[settings.lineHeight]}
           min={0.8}
@@ -57,10 +51,7 @@ export default function StyleControls() {
         <Select
           value={settings.textAlign}
           onValueChange={(value) => {
-            setSettings((prev) => ({
-              ...prev,
-              textAlign: value,
-            }));
+            updateSetting("textAlign", value);
           }}
         >
           <SelectTrigger className="mt-2">
@@ -81,10 +72,7 @@ export default function StyleControls() {
         <Switch
           checked={settings.gradientEnabled}
           onCheckedChange={(checked) =>
-            setSettings((prev) => ({
-              ...prev,
-              gradientEnabled: checked,
-            }))
+            updateSetting("gradientEnabled", checked)
           }
         />
       </div>
@@ -102,10 +90,7 @@ export default function StyleControls() {
                     size="sm"
                     className="flex items-center gap-1"
                     onClick={() =>
-                      setSettings((prev) => ({
-                        ...prev,
-                        gradientDirection: direction.value,
-                      }))
+                      updateSetting("gradientDirection", direction.value)
                     }
                     variant={
                       settings.gradientDirection === direction.value
@@ -127,12 +112,10 @@ export default function StyleControls() {
                 <Input
                   value={settings.gradientColors[0]}
                   onChange={(e) => {
-                    const newColors = [...settings.gradientColors];
-                    newColors[0] = e.target.value;
-                    setSettings((prev) => ({
-                      ...prev,
-                      gradientColors: newColors as [string, string],
-                    }));
+                    updateSetting("gradientColors", [
+                      settings.gradientColors[0],
+                      e.target.value,
+                    ]);
                   }}
                   type="color"
                   className="w-12 h-10 p-1 border rounded"
@@ -140,12 +123,10 @@ export default function StyleControls() {
                 <Input
                   value={settings.gradientColors[0]}
                   onChange={(e) => {
-                    const newColors = [...settings.gradientColors];
-                    newColors[0] = e.target.value;
-                    setSettings((prev) => ({
-                      ...prev,
-                      gradientColors: newColors as [string, string],
-                    }));
+                    updateSetting("gradientColors", [
+                      settings.gradientColors[0],
+                      e.target.value,
+                    ]);
                   }}
                   className="flex-1"
                 />
@@ -157,12 +138,10 @@ export default function StyleControls() {
                 <Input
                   value={settings.gradientColors[1]}
                   onChange={(e) => {
-                    const newColors = [...settings.gradientColors];
-                    newColors[1] = e.target.value;
-                    setSettings((prev) => ({
-                      ...prev,
-                      gradientColors: newColors as [string, string],
-                    }));
+                    updateSetting("gradientColors", [
+                      settings.gradientColors[1],
+                      e.target.value,
+                    ]);
                   }}
                   type="color"
                   className="w-12 h-10 p-1 border rounded"
@@ -170,12 +149,10 @@ export default function StyleControls() {
                 <Input
                   value={settings.gradientColors[1]}
                   onChange={(e) => {
-                    const newColors = [...settings.gradientColors];
-                    newColors[1] = e.target.value;
-                    setSettings((prev) => ({
-                      ...prev,
-                      gradientColors: newColors as [string, string],
-                    }));
+                    updateSetting("gradientColors", [
+                      settings.gradientColors[1],
+                      e.target.value,
+                    ]);
                   }}
                   className="flex-1"
                 />

@@ -25,6 +25,10 @@ export interface HeadlineSettings {
   perLetterAnimation: boolean;
   wordStyles: { [key: string]: WordStyle };
   exportFormat: ExportFormat;
+  updateSetting: <K extends keyof HeadlineSettings>(
+    key: K,
+    value: HeadlineSettings[K]
+  ) => void;
 }
 
 export type ExportFormat = "json" | "css" | "jsx" | "embed";

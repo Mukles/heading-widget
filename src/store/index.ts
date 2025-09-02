@@ -23,6 +23,7 @@ const defaultHeadlineSettings: HeadlineSettings = {
   perLetterAnimation: false,
   wordStyles: {},
   exportFormat: "json",
+  updateSetting: () => {},
 };
 
 interface HeadlineSettingsContextProps {
@@ -33,6 +34,10 @@ interface HeadlineSettingsContextProps {
   readonly resetSettings: () => void;
   exportFormat: ExportFormat;
   setExportFormat: React.Dispatch<React.SetStateAction<ExportFormat>>;
+  updateSetting: <K extends keyof HeadlineSettings>(
+    key: K,
+    value: HeadlineSettings[K]
+  ) => void;
 }
 
 const HeadlineSettingsContext = createContext<
@@ -58,6 +63,13 @@ export const HeadlineSettingsProvider = ({
     setSelectedWord(null);
   };
 
+  const updateSetting = <K extends keyof HeadlineSettings>(
+    key: K,
+    value: HeadlineSettings[K]
+  ) => {
+    setSettings((prev) => ({ ...prev, [key]: value }));
+  };
+
   return React.createElement(
     HeadlineSettingsContext.Provider,
     {
@@ -69,6 +81,7 @@ export const HeadlineSettingsProvider = ({
         resetSettings,
         exportFormat,
         setExportFormat,
+        updateSetting,
       },
     },
     children

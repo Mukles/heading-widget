@@ -14,11 +14,11 @@ import { useHeadlineSettings } from "@/store";
 import { useEffect, useState } from "react";
 
 export default function TextControls() {
-  const { settings, setSettings } = useHeadlineSettings();
+  const { settings, updateSetting } = useHeadlineSettings();
   const [inputText, setInputText] = useState(settings.text);
   const debouncedValue = useDebounce(inputText);
   useEffect(() => {
-    setSettings({ ...settings, text: debouncedValue });
+    updateSetting("text", debouncedValue);
   }, [debouncedValue]);
 
   return (
@@ -41,7 +41,7 @@ export default function TextControls() {
         <Select
           value={settings.fontFamily}
           onValueChange={(value) => {
-            setSettings({ ...settings, fontFamily: value });
+            updateSetting("fontFamily", value);
           }}
           aria-labelledby="font-family-label"
         >
@@ -63,7 +63,7 @@ export default function TextControls() {
         <Select
           value={settings.fontWeight}
           onValueChange={(value) => {
-            setSettings({ ...settings, fontWeight: value });
+            updateSetting("fontWeight", value);
           }}
           aria-labelledby="font-weight"
         >
@@ -84,9 +84,7 @@ export default function TextControls() {
         <Label>Font Size: {settings.fontSize}px</Label>
         <Slider
           value={[settings.fontSize]}
-          onValueChange={([value]) =>
-            setSettings({ ...settings, fontSize: value })
-          }
+          onValueChange={([value]) => updateSetting("fontSize", value)}
           min={16}
           max={120}
           step={1}

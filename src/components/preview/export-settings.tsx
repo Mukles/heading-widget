@@ -11,7 +11,7 @@ import type { ExportFormat } from "@/types";
 import { Copy, Download } from "lucide-react";
 
 export default function ExportSettings() {
-  const { exportFormat, setExportFormat } = useHeadlineSettings();
+  const { exportFormat, updateSetting } = useHeadlineSettings();
   return (
     <div className="mt-6 pt-6 border-t">
       <div className="flex items-center justify-between mb-4">
@@ -19,7 +19,7 @@ export default function ExportSettings() {
         <Select
           value={exportFormat}
           onValueChange={(value) => {
-            setExportFormat(value as ExportFormat);
+            updateSetting("exportFormat", value as ExportFormat);
           }}
         >
           <SelectTrigger className="w-32">
