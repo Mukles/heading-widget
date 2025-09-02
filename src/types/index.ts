@@ -25,6 +25,10 @@ export interface HeadlineSettings {
   perLetterAnimation: boolean;
   wordStyles: { [key: string]: WordStyle };
   exportFormat: ExportFormat;
+  transitionDuration: number;
+  transitionTiming: string;
+  transitionDelay: number;
+  hoverTransitionDuration: number;
   updateSetting: <K extends keyof HeadlineSettings>(
     key: K,
     value: HeadlineSettings[K]

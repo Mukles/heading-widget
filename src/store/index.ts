@@ -23,6 +23,10 @@ const defaultHeadlineSettings: HeadlineSettings = {
   perLetterAnimation: false,
   wordStyles: {},
   exportFormat: "json",
+  transitionDuration: 300,
+  transitionTiming: "ease-in-out",
+  transitionDelay: 0,
+  hoverTransitionDuration: 200,
   updateSetting: () => {},
 };
 

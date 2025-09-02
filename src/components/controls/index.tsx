@@ -1,3 +1,4 @@
+export { default as TransitionControls } from "./transition-controls";
 export { default as Controls } from "./controls";
 export { default as EffectsControls } from "./effects-controls";
 export { default as StyleControls } from "./style-controls";

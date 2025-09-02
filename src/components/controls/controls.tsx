@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { motion } from "framer-motion";
-import { Palette, Sparkles, Type } from "lucide-react";
+import { Palette, Sparkles, Timer, Type } from "lucide-react";
+import { TransitionControls } from ".";
 import EffectsControls from "./effects-controls";
 import StyleControls from "./style-controls";
 import TextControls from "./text-controls";
@@ -16,7 +17,7 @@ export default function Controls() {
     >
       <Card className="p-6 h-full">
         <Tabs defaultValue="text" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="text" className="flex items-center gap-2">
               <Type className="w-4 h-4" />
               Text
@@ -29,6 +30,10 @@ export default function Controls() {
               <Sparkles className="w-4 h-4" />
               Effects
             </TabsTrigger>
+            <TabsTrigger value="transition" className="flex items-center gap-2">
+              <Timer className="w-4 h-4" />
+              Transition
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="text" className="space-y-6 mt-6">
             <TextControls />
@@ -38,6 +43,10 @@ export default function Controls() {
           </TabsContent>
           <TabsContent value="effects" className="space-y-6 mt-6">
             <EffectsControls />
+          </TabsContent>
+
+          <TabsContent value="transition" className="space-y-6 mt-6">
+            <TransitionControls />
           </TabsContent>
         </Tabs>
       </Card>
