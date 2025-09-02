@@ -1,6 +1,6 @@
 import { Controls } from "@/components/controls";
 import { motion } from "framer-motion";
-import Preview from "./preview";
+import { Preview } from "./preview";
 
 export default function HeadlineWidget() {
   return (

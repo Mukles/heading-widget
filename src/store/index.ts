@@ -26,6 +26,8 @@ const defaultHeadlineSettings: HeadlineSettings = {
 interface HeadlineSettingsContextProps {
   settings: HeadlineSettings;
   setSettings: React.Dispatch<React.SetStateAction<HeadlineSettings>>;
+  selectedWord: string | null;
+  setSelectedWord: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const HeadlineSettingsContext = createContext<
@@ -37,12 +39,13 @@ export const HeadlineSettingsProvider = ({
 }: {
   children: ReactNode;
 }) => {
+  const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [settings, setSettings] = useState<HeadlineSettings>(
     defaultHeadlineSettings
   );
   return React.createElement(
     HeadlineSettingsContext.Provider,
-    { value: { settings, setSettings } },
+    { value: { settings, setSettings, selectedWord, setSelectedWord } },
     children
   );
 };
