@@ -1,3 +1,4 @@
+import { fontFamilies } from "@/constants";
 import type { ReactNode } from "react";
 import React, { createContext, useContext, useState } from "react";
 import type { ExportFormat, HeadlineSettings } from "../types";
@@ -6,7 +7,7 @@ const defaultHeadlineSettings: HeadlineSettings = {
   text: "Create Amazing Headlines",
   fontSize: 48,
   fontWeight: "700",
-  fontFamily: "DM Sans",
+  fontFamily: fontFamilies[0],
   letterSpacing: -0.02,
   lineHeight: 1.1,
   gradientEnabled: true,

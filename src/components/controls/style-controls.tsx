@@ -12,23 +12,57 @@ import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { gradientDirections } from "@/constants/gradients";
+import { useHeadlineSettings } from "@/store";
 
 export default function StyleControls() {
+  const { settings, setSettings } = useHeadlineSettings();
   return (
     <>
       <div>
-        <Label>Letter Spacing:{10}em</Label>
-        <Slider value={[1]} min={-0.1} max={0.2} step={0.01} className="mt-2" />
+        <Label>Letter Spacing:{settings.letterSpacing}em</Label>
+        <Slider
+          onValueChange={(value) => {
+            setSettings((prev) => ({
+              ...prev,
+              letterSpacing: value[0],
+            }));
+          }}
+          value={[settings.letterSpacing]}
+          min={-0.1}
+          max={0.2}
+          step={0.01}
+          className="mt-2"
+        />
       </div>
 
       <div>
-        <Label>Line Height: {10}</Label>
-        <Slider value={[10]} min={0.8} max={2} step={0.1} className="mt-2" />
+        <Label>Line Height: {settings.lineHeight}</Label>
+        <Slider
+          onValueChange={(value) => {
+            setSettings((prev) => ({
+              ...prev,
+              lineHeight: value[0],
+            }));
+          }}
+          value={[settings.lineHeight]}
+          min={0.8}
+          max={2}
+          step={0.1}
+          className="mt-2"
+        />
       </div>
 
       <div>
         <Label>Text Alignment</Label>
-        <Select>
+        <Select
+          value={settings.textAlign}
+          onValueChange={(value) => {
+            setSettings((prev) => ({
+              ...prev,
+              textAlign: value,
+            }));
+          }}
+        >
           <SelectTrigger className="mt-2">
             <SelectValue />
           </SelectTrigger>
@@ -44,10 +78,18 @@ export default function StyleControls() {
 
       <div className="flex items-center justify-between">
         <Label>Gradient</Label>
-        <Switch />
+        <Switch
+          checked={settings.gradientEnabled}
+          onCheckedChange={(checked) =>
+            setSettings((prev) => ({
+              ...prev,
+              gradientEnabled: checked,
+            }))
+          }
+        />
       </div>
 
-      {false && (
+      {settings.gradientEnabled && (
         <div className="space-y-4">
           <div>
             <Label>Gradient Direction</Label>
@@ -59,6 +101,17 @@ export default function StyleControls() {
                     key={direction.value}
                     size="sm"
                     className="flex items-center gap-1"
+                    onClick={() =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        gradientDirection: direction.value,
+                      }))
+                    }
+                    variant={
+                      settings.gradientDirection === direction.value
+                        ? "default"
+                        : "outline"
+                    }
                   >
                     <Icon className="w-3 h-3" />
                   </Button>
@@ -71,15 +124,61 @@ export default function StyleControls() {
             <div>
               <Label>Start Color</Label>
               <div className="flex items-center gap-2 mt-2">
-                <Input type="color" className="w-12 h-10 p-1 border rounded" />
-                <Input className="flex-1" />
+                <Input
+                  value={settings.gradientColors[0]}
+                  onChange={(e) => {
+                    const newColors = [...settings.gradientColors];
+                    newColors[0] = e.target.value;
+                    setSettings((prev) => ({
+                      ...prev,
+                      gradientColors: newColors as [string, string],
+                    }));
+                  }}
+                  type="color"
+                  className="w-12 h-10 p-1 border rounded"
+                />
+                <Input
+                  value={settings.gradientColors[0]}
+                  onChange={(e) => {
+                    const newColors = [...settings.gradientColors];
+                    newColors[0] = e.target.value;
+                    setSettings((prev) => ({
+                      ...prev,
+                      gradientColors: newColors as [string, string],
+                    }));
+                  }}
+                  className="flex-1"
+                />
               </div>
             </div>
             <div>
               <Label>End Color</Label>
               <div className="flex items-center gap-2 mt-2">
-                <Input type="color" className="w-12 h-10 p-1 border rounded" />
-                <Input className="flex-1" />
+                <Input
+                  value={settings.gradientColors[1]}
+                  onChange={(e) => {
+                    const newColors = [...settings.gradientColors];
+                    newColors[1] = e.target.value;
+                    setSettings((prev) => ({
+                      ...prev,
+                      gradientColors: newColors as [string, string],
+                    }));
+                  }}
+                  type="color"
+                  className="w-12 h-10 p-1 border rounded"
+                />
+                <Input
+                  value={settings.gradientColors[1]}
+                  onChange={(e) => {
+                    const newColors = [...settings.gradientColors];
+                    newColors[1] = e.target.value;
+                    setSettings((prev) => ({
+                      ...prev,
+                      gradientColors: newColors as [string, string],
+                    }));
+                  }}
+                  className="flex-1"
+                />
               </div>
             </div>
           </div>
