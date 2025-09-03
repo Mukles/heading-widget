@@ -1,6 +1,7 @@
 import { Controls } from "@/components/controls";
 import { motion } from "framer-motion";
 import { Preview } from "./preview";
+import MobileMenu from "./ui/mobile-menu";
 
 export default function HeadlineWidget() {
   return (
@@ -22,6 +23,7 @@ export default function HeadlineWidget() {
         <div className="grid lg:grid-cols-2 gap-8">
           <Preview />
           <Controls />
+          <MobileMenu />
         </div>
       </div>
     </div>

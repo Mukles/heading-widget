@@ -1,11 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { controlsTabs } from "@/constants";
 import { motion } from "framer-motion";
-import { Palette, Sparkles, Timer, Type } from "lucide-react";
-import { TransitionControls } from ".";
-import EffectsControls from "./effects-controls";
-import StyleControls from "./style-controls";
-import TextControls from "./text-controls";
 
 export default function Controls() {
   return (
@@ -13,41 +9,27 @@ export default function Controls() {
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.2 }}
-      className="h-full"
+      className="h-full max-lg:hidden"
     >
       <Card className="p-6 h-full">
         <Tabs defaultValue="text" className="w-full">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="text" className="flex items-center gap-2">
-              <Type className="w-4 h-4" />
-              Text
-            </TabsTrigger>
-            <TabsTrigger value="style" className="flex items-center gap-2">
-              <Palette className="w-4 h-4" />
-              Style
-            </TabsTrigger>
-            <TabsTrigger value="effects" className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              Effects
-            </TabsTrigger>
-            <TabsTrigger value="transition" className="flex items-center gap-2">
-              <Timer className="w-4 h-4" />
-              Transition
-            </TabsTrigger>
+            {controlsTabs.map((tab) => (
+              <TabsTrigger
+                key={tab.label}
+                value={tab.value}
+                className="flex items-center gap-2"
+              >
+                <tab.icon className="w-4 h-4" />
+                {tab.label}
+              </TabsTrigger>
+            ))}
           </TabsList>
-          <TabsContent value="text" className="space-y-6 mt-6">
-            <TextControls />
-          </TabsContent>
-          <TabsContent value="style" className="space-y-6 mt-6">
-            <StyleControls />
-          </TabsContent>
-          <TabsContent value="effects" className="space-y-6 mt-6">
-            <EffectsControls />
-          </TabsContent>
-
-          <TabsContent value="transition" className="space-y-6 mt-6">
-            <TransitionControls />
-          </TabsContent>
+          {controlsTabs.map((tab) => (
+            <TabsContent value={tab.value} className="space-y-6 mt-6">
+              <tab.content />
+            </TabsContent>
+          ))}
         </Tabs>
       </Card>
     </motion.div>

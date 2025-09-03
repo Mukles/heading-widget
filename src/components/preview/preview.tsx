@@ -34,7 +34,7 @@ export default function Preview() {
           </Button>
         </div>
         {/* Preview Area */}
-        <div className="min-h-[200px] flex items-center justify-center bg-gradient-to-br from-muted/30 to-card/50 rounded-lg p-8 border-2 border-dashed border-border">
+        <div className="min-h-[200px] flex items-center justify-center bg-gradient-to-br from-muted/30 to-card/50 rounded-lg p-8 border-2 border-dashed border-border relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={settings.text + settings.animation}
@@ -42,7 +42,9 @@ export default function Preview() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className={`${getAnimationClass(settings)} text-balance`}
+              className={`${getAnimationClass(
+                settings
+              )} text-balance absolute left-0 top-1/2 -translate-y-1/2 w-full h-auto`}
               style={getHeadlineStyle(settings)}
             >
               <HeadlineRenderer />

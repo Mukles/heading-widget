@@ -1,12 +1,16 @@
 import HeadlineWidget from "@/components/headline-widget";
+import TwSizeIndicator from "./components/tw-size-indecator";
 import "./global.css";
 import { HeadlineSettingsProvider } from "./store";
 
 function App() {
   return (
-    <HeadlineSettingsProvider>
-      <HeadlineWidget />
-    </HeadlineSettingsProvider>
+    <>
+      <TwSizeIndicator />
+      <HeadlineSettingsProvider>
+        <HeadlineWidget />
+      </HeadlineSettingsProvider>
+    </>
   );
 }
 

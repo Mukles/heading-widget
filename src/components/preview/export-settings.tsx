@@ -6,12 +6,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { useHeadlineSettings } from "@/store";
 import type { ExportFormat } from "@/types";
 import { Check, Copy, Download } from "lucide-react";
 import { useState } from "react";
 
-export default function ExportSettings() {
+export default function ExportSettings({ className }: { className?: string }) {
   const { exportFormat, updateSetting, settings } = useHeadlineSettings();
   const [copySuccess, setCopySuccess] = useState(false);
 
@@ -214,7 +215,7 @@ export default function ExportSettings() {
   ];
 
   return (
-    <div className="mt-6 pt-6 border-t">
+    <div className={cn("mt-6 pt-6 border-t", className)}>
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="font-medium">Export Settings</h3>
