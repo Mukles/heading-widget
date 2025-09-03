@@ -13,7 +13,7 @@ import { Button, buttonVariants } from "./button";
 
 export default function MobileMenu() {
   return (
-    <div className="flex gap-x-4 mx-w-xl mx-auto">
+    <div className="flex gap-x-4 mx-w-xl mx-auto lg:hidden">
       {controlsTabs.map((tab, i) => (
         <Drawer key={i}>
           <DrawerTrigger className="text-center">
