@@ -6,6 +6,25 @@ export const getWordStyle = (
 ): React.CSSProperties => {
   const wordStyle = settings.wordStyles[word];
   if (!wordStyle) return {};
+
+  let textColor = "inherit";
+
+  if (wordStyle.highlight || wordStyle.background) {
+    if (settings.gradientEnabled) {
+      textColor = settings.gradientColors[0];
+    } else {
+      textColor = settings.gradientColors[0];
+    }
+
+    if (wordStyle.highlight) {
+      textColor = "#1f2937";
+    } else if (wordStyle.background) {
+      textColor = settings.gradientEnabled
+        ? settings.gradientColors[0]
+        : settings.gradientColors[0];
+    }
+  }
+
   return {
     backgroundColor: wordStyle.highlight
       ? "#fef08a"
@@ -19,7 +38,10 @@ export const getWordStyle = (
     textDecorationThickness: "2px",
     padding: wordStyle.background ? "2px 6px" : "0",
     borderRadius: wordStyle.background ? "4px" : "0",
-    color: wordStyle.color || "inherit",
+    color: textColor,
+    WebkitTextFillColor:
+      wordStyle.highlight || wordStyle.background ? textColor : "inherit",
+    transition: `all ${settings.hoverTransitionDuration}ms ${settings.transitionTiming}`,
   };
 };
 
