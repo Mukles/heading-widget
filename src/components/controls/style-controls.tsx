@@ -110,24 +110,24 @@ export default function StyleControls() {
               <Label>Start Color</Label>
               <div className="flex items-center gap-2 mt-2">
                 <Input
-                  value={settings.gradientColors[0]}
-                  onChange={(e) => {
-                    updateSetting("gradientColors", [
-                      settings.gradientColors[0],
-                      e.target.value,
-                    ]);
-                  }}
                   type="color"
+                  value={settings.gradientColors[0]}
+                  onChange={(e) =>
+                    updateSetting("gradientColors", [
+                      e.target.value,
+                      settings.gradientColors[1],
+                    ])
+                  }
                   className="w-12 h-10 p-1 border rounded"
                 />
                 <Input
                   value={settings.gradientColors[0]}
-                  onChange={(e) => {
+                  onChange={(e) =>
                     updateSetting("gradientColors", [
-                      settings.gradientColors[0],
                       e.target.value,
-                    ]);
-                  }}
+                      settings.gradientColors[1],
+                    ])
+                  }
                   className="flex-1"
                 />
               </div>
@@ -136,24 +136,24 @@ export default function StyleControls() {
               <Label>End Color</Label>
               <div className="flex items-center gap-2 mt-2">
                 <Input
-                  value={settings.gradientColors[1]}
-                  onChange={(e) => {
-                    updateSetting("gradientColors", [
-                      settings.gradientColors[1],
-                      e.target.value,
-                    ]);
-                  }}
                   type="color"
+                  value={settings.gradientColors[1]}
+                  onChange={(e) =>
+                    updateSetting("gradientColors", [
+                      settings.gradientColors[0],
+                      e.target.value,
+                    ])
+                  }
                   className="w-12 h-10 p-1 border rounded"
                 />
                 <Input
                   value={settings.gradientColors[1]}
-                  onChange={(e) => {
+                  onChange={(e) =>
                     updateSetting("gradientColors", [
-                      settings.gradientColors[1],
+                      settings.gradientColors[0],
                       e.target.value,
-                    ]);
-                  }}
+                    ])
+                  }
                   className="flex-1"
                 />
               </div>

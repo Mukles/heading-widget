@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { RotateCcw, Sparkles } from "lucide-react";
 import ExportSettings from "./export-settings";
 import HeadlineRenderer from "./headline-renderer";
+import WordStylePanel from "./word-styling-panel";
 
 export default function Preview() {
   const { settings, resetSettings } = useHeadlineSettings();
@@ -48,6 +49,8 @@ export default function Preview() {
             </motion.div>
           </AnimatePresence>
         </div>
+        {/* Word Style Panel */}
+        <WordStylePanel />
         {/* Export Section */}
         <ExportSettings />
       </Card>
