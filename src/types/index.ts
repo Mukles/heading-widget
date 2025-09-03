@@ -2,7 +2,9 @@ export interface WordStyle {
   highlight: boolean;
   underline: boolean;
   background: boolean;
-  color?: string;
+  highlightColor?: string;
+  backgroundColor?: string;
+  textColor?: string;
 }
 
 export interface HeadlineSettings {

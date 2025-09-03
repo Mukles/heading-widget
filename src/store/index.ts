@@ -40,6 +40,11 @@ interface HeadlineSettingsContextProps {
     key: K,
     value: HeadlineSettings[K]
   ) => void;
+  updateWordColor: (
+    word: string,
+    colorType: "highlight" | "background" | "text",
+    color: string
+  ) => void;
 }
 
 const HeadlineSettingsContext = createContext<
@@ -68,6 +73,23 @@ export const HeadlineSettingsProvider = ({
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
+  const updateWordColor = (
+    word: string,
+    colorType: "highlight" | "background" | "text",
+    color: string
+  ) => {
+    setSettings((prev) => ({
+      ...prev,
+      wordStyles: {
+        ...prev.wordStyles,
+        [word]: {
+          ...prev.wordStyles[word],
+          [`${colorType}Color`]: color,
+        },
+      },
+    }));
+  };
+
   return React.createElement(
     HeadlineSettingsContext.Provider,
     {
@@ -78,6 +100,7 @@ export const HeadlineSettingsProvider = ({
         setSelectedWord,
         resetSettings,
         updateSetting,
+        updateWordColor,
       },
     },
     children

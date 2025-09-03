@@ -8,39 +8,33 @@ export const getWordStyle = (
   if (!wordStyle) return {};
 
   let textColor = "inherit";
+  let backgroundColor = "transparent";
 
-  if (wordStyle.highlight || wordStyle.background) {
-    if (settings.gradientEnabled) {
-      textColor = settings.gradientColors[0];
-    } else {
-      textColor = settings.gradientColors[0];
-    }
-
-    if (wordStyle.highlight) {
-      textColor = "#1f2937";
-    } else if (wordStyle.background) {
-      textColor = settings.gradientEnabled
+  if (wordStyle.highlight) {
+    backgroundColor = wordStyle.highlightColor || "#fef08a";
+    textColor = wordStyle.textColor || "#1f2937";
+  } else if (wordStyle.background) {
+    backgroundColor = wordStyle.backgroundColor || "#e5e7eb";
+    textColor =
+      wordStyle.textColor ||
+      (settings.gradientEnabled
         ? settings.gradientColors[0]
-        : settings.gradientColors[0];
-    }
+        : settings.gradientColors[0]);
   }
 
+  const overrideGradient = wordStyle.highlight || wordStyle.background;
+
   return {
-    backgroundColor: wordStyle.highlight
-      ? "#fef08a"
-      : wordStyle.background
-      ? "#e5e7eb"
-      : "transparent",
+    backgroundColor,
     textDecoration: wordStyle.underline ? "underline" : "none",
     textDecorationColor: wordStyle.underline
       ? settings.gradientColors[0]
       : "inherit",
     textDecorationThickness: "2px",
-    padding: wordStyle.background ? "2px 6px" : "0",
-    borderRadius: wordStyle.background ? "4px" : "0",
-    color: textColor,
-    WebkitTextFillColor:
-      wordStyle.highlight || wordStyle.background ? textColor : "inherit",
+    padding: wordStyle.background || wordStyle.highlight ? "2px 6px" : "0",
+    borderRadius: wordStyle.background || wordStyle.highlight ? "4px" : "0",
+    color: overrideGradient ? textColor : "inherit",
+    WebkitTextFillColor: overrideGradient ? textColor : "inherit",
     transition: `all ${settings.hoverTransitionDuration}ms ${settings.transitionTiming}`,
   };
 };

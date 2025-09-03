@@ -3,6 +3,8 @@ import type { WordStyle } from "@/types";
 import { AnimatePresence, motion } from "framer-motion";
 import { Highlighter, Square, Underline } from "lucide-react";
 import { Button } from "../ui/button";
+import BackgroundColor from "./background-color";
+import HighlightColor from "./hightlight-color";
 
 export default function WordStylePanel() {
   const { selectedWord, settings, setSettings } = useHeadlineSettings();
@@ -67,6 +69,9 @@ export default function WordStylePanel() {
               Background
             </Button>
           </div>
+
+          <BackgroundColor />
+          <HighlightColor />
         </motion.div>
       )}
     </AnimatePresence>
