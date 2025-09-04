@@ -14,26 +14,32 @@ export default function Controls() {
       <Card className="p-6 h-full">
         <Tabs defaultValue="text" className="w-full">
           <TabsList className="grid w-full grid-cols-4">
-            {controlsTabs.map((tab) => (
-              <TabsTrigger
+            {controlsTabs.map((tab) => {
+              const Icon = tab.icon;
+              return (
+                <TabsTrigger
+                  key={tab.label}
+                  value={tab.value}
+                  className="flex items-center gap-2"
+                >
+                  <Icon className="w-4 h-4" />
+                  {tab.label}
+                </TabsTrigger>
+              );
+            })}
+          </TabsList>
+          {controlsTabs.map((tab) => {
+            const Content = tab.content;
+            return (
+              <TabsContent
                 key={tab.label}
                 value={tab.value}
-                className="flex items-center gap-2"
+                className="space-y-6 mt-6"
               >
-                <tab.icon className="w-4 h-4" />
-                {tab.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          {controlsTabs.map((tab) => (
-            <TabsContent
-              key={tab.label}
-              value={tab.value}
-              className="space-y-6 mt-6"
-            >
-              <tab.content />
-            </TabsContent>
-          ))}
+                <Content />
+              </TabsContent>
+            );
+          })}
         </Tabs>
       </Card>
     </motion.div>
