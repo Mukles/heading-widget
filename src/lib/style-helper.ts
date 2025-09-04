@@ -35,7 +35,9 @@ export const getWordStyle = (
     borderRadius: wordStyle.background || wordStyle.highlight ? "4px" : "0",
     color: overrideGradient ? textColor : "inherit",
     WebkitTextFillColor: overrideGradient ? textColor : "inherit",
-    transition: `all ${settings.hoverTransitionDuration}ms ${settings.transitionTiming}`,
+    transition:
+      `background-color 300ms, color 300ms, font-size 300ms, border-radius 300ms, padding 300ms, text-shadow 300ms, text-decoration-color 300ms, text-decoration-thickness 300ms,` +
+      `all ${settings.hoverTransitionDuration}ms ${settings.transitionTiming}`,
   };
 };
 
@@ -78,6 +80,9 @@ export const getHeadlineStyle = (
     WebkitTextStroke: settings.textStroke
       ? `${settings.strokeWidth}px ${settings.strokeColor}`
       : "none",
+    transition:
+      `background-color 300ms, color 300ms, font-size 300ms, letter-spacing 300ms, line-height 300ms, text-shadow 300ms,` +
+      `all ${settings.hoverTransitionDuration}ms ${settings.transitionTiming}`,
   };
 
   if (settings.gradientEnabled) {

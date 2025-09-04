@@ -26,7 +26,11 @@ export default function Controls() {
             ))}
           </TabsList>
           {controlsTabs.map((tab) => (
-            <TabsContent value={tab.value} className="space-y-6 mt-6">
+            <TabsContent
+              key={tab.label}
+              value={tab.value}
+              className="space-y-6 mt-6"
+            >
               <tab.content />
             </TabsContent>
           ))}

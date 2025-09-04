@@ -1,21 +1,10 @@
-import {
-  ArrowDown,
-  ArrowDownLeft,
-  ArrowDownRight,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUp,
-  ArrowUpLeft,
-  ArrowUpRight,
-} from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from "lucide-react";
 
 export const gradientDirections = [
-  { value: "to-r", icon: ArrowRight },
-  { value: "to-l", icon: ArrowLeft },
-  { value: "to-t", icon: ArrowUp },
-  { value: "to-b", icon: ArrowDown },
-  { value: "to-tr", icon: ArrowUpRight },
-  { value: "to-tl", icon: ArrowUpLeft },
-  { value: "to-br", icon: ArrowDownRight },
-  { value: "to-bl", icon: ArrowDownLeft },
+  { value: "to right", label: "Right", icon: ArrowRight },
+  { value: "to left", label: "Left", icon: ArrowLeft },
+  { value: "to bottom", label: "Down", icon: ArrowDown },
+  { value: "to top", label: "Up", icon: ArrowUp },
+  { value: "to bottom right", label: "Bottom Right", icon: ArrowRight },
+  { value: "to bottom left", label: "Bottom Left", icon: ArrowLeft },
 ];

@@ -1,4 +1,4 @@
-import { animations, fontFamilies } from "@/constants";
+import { animations, fontFamilies, gradientDirections } from "@/constants";
 import type { ReactNode } from "react";
 import React, { createContext, useContext, useState } from "react";
 import type { HeadlineSettings } from "../types";
@@ -11,7 +11,7 @@ const defaultHeadlineSettings: HeadlineSettings = {
   letterSpacing: -0.02,
   lineHeight: 1.1,
   gradientEnabled: true,
-  gradientDirection: "to right",
+  gradientDirection: gradientDirections[0].value,
   gradientColors: ["#be123c", "#ec4899"],
   textShadow: false,
   textStroke: false,
