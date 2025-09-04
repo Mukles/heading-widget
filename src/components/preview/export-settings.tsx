@@ -234,8 +234,12 @@ export default function ExportSettings({ className }: { className?: string }) {
           </SelectTrigger>
           <SelectContent>
             {exportOptions.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                <div className="flex flex-col group">
+              <SelectItem
+                className="group"
+                key={option.value}
+                value={option.value}
+              >
+                <div className="flex flex-col ">
                   <span>{option.label}</span>
                   <span className="text-xs text-muted-foreground group-hover:text-muted">
                     {option.description}
